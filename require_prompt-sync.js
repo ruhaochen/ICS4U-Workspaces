@@ -1,0 +1,1 @@
+const prompt = require('./node-examples/node_modules/prompt-sync')();
