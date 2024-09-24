@@ -37,8 +37,7 @@ let two_months = months.splice(3,2);
 console.log(two_months);
 
 let cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Pheonix'];
-cities.splice(2,2);
-console.log(cities);
+console.log(cities.slice(2,3));
 
 //Task 6
 let hobbies = ['reading', 'swimming', 'gaming', 'traveling'];

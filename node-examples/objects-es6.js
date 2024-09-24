@@ -44,8 +44,8 @@ const obj = {
         console.log(this.b);
     }
 }
-
-let{b, c} = obj;
+console.log(obj.b);
+//let{b, c} = obj;
 
 //console.log(b)
 
