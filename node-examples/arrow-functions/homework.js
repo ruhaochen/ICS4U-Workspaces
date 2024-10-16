@@ -28,7 +28,7 @@ console.log(factorial(3));
 //Question 6 - Something's wrong
 let arr2 = [5,7,8,2, 15 ,-9,-8];
 let sortArray = (arr) => {
-    return arr.sort();
+    return arr.sort((a, b) => a-b);
 }
 console.log(sortArray(arr2));
 
@@ -67,5 +67,3 @@ let mapArrayToString = (arr) =>{
     let array = new Array(5);
     return array;
 }
-arr3 = ['hello'];
-console.log(mapArrayToString(arr3).length);
