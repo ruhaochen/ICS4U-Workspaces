@@ -28,7 +28,7 @@ app.post('/books', (req, res) =>{
 }); 
 
 app.get('/books/available', (req, res) => {
-    res.send(books);
+    res.send(books.filter(book => book.isAvailable === true));
 });
 
 app.post('/books/borrow', (req, res) =>{
