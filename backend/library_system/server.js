@@ -3,17 +3,18 @@ import express, { urlencoded } from 'express';
 const app = express();
 const PORT = process.env.PORT || 5001 ;
 
+//Data
 let books = [
     { id: 1, title: 'To Kill a Mockingbird', author: 'Harper Lee', year: 1960, isAvailable: true },
     { id: 2, title: '1984', author: 'George Orwell', year: 1949, isAvailable: true },
     { id: 3, title: 'Moby Dick', author: 'Herman Melville', year: 1851, isAvailable: true }
 ];
 
+//Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Routes
-
 app.post('/books', (req, res) =>{
     const book = {
         id: books.length + 1,
@@ -48,4 +49,5 @@ app.post('/books/return', (req, res) =>{
     res.send(book); 
 }); 
 
+//Start the server
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
