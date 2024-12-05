@@ -1,5 +1,5 @@
 import express from 'express';
-import aggregationRoutes from './routes/aggregation';
+import aggregationRoutes from './routes/aggregation.js';
 
 const app = express();
 const port = process.env.PORT || 3000; 
