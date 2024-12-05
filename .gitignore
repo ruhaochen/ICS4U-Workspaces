@@ -2,3 +2,7 @@ node-examples/node_modules/
 library_project/node_modules/
 backend/rest-api/node_modules/ 
 backend/library_system/node_modules/
+sports-api/node_modules/
+sports-api/.env
+.gitignore
+MongoDB Playground
