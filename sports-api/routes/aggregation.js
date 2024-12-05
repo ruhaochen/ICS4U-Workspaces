@@ -1,5 +1,6 @@
 import express from 'express';
 import {connectDB} from '../config/db.js';
+const router = express.Router();
 
 // 1. Count the Total Number of Players
 router.get('/total-players', async (req, res) => {
