@@ -79,16 +79,66 @@ router.get('/total-matches', async (req, res) => {
 // 6. Count Wins for Each Team
 router.get('/wins-per-team', async (req, res) => {
     try {
-        const db = await connectDB();
-        const result = await db.collection ('matches').aggregate([
-            { $match: { $expr: { $gt: ["$home_score", "$away_score"] } } }, // Match home wins
-            { $group: { _id: "$home_team", wins: { $sum: 1 } } }
-        ]).toArray();
-        res.json(result);
+      const db = await connectDB();
+      const result = await db.collection('matches').aggregate([
+        {
+          $lookup: {
+            from: 'scores',          
+            localField: '_id',       
+            foreignField: 'match_id', 
+            as: 'match_scores'       
+          }
+        },
+        { 
+            $unwind: '$match_scores' 
+        },
+        {
+          $facet: {
+            homeWins: [
+              {
+                $match: {
+                  $expr: {
+                    $gt: ['$match_scores.home_score', '$match_scores.away_score'] // Home team wins if home_score > away_score
+                  }
+                }
+              },
+              { $group: { _id: '$home_team', wins: { $sum: 1 } } } // Count wins for home team
+            ],
+            awayWins: [
+              {
+                $match: {
+                  $expr: {
+                    $gt: ['$match_scores.away_score', '$match_scores.home_score'] // Away team wins if away_score > home_score
+                  }
+                }
+              },
+              { $group: { _id: '$away_team', wins: { $sum: 1 } } } // Count wins for away team
+            ]
+          }
+        },
+        {
+          $project: {
+            totalWins: { $concatArrays: ['$homeWins', '$awayWins'] }
+          }
+        },
+        { 
+          $unwind: '$totalWins' 
+        },
+        {
+          $group: {
+            _id: '$totalWins._id',  // Team name
+            wins: { $sum: '$totalWins.wins' } // Total wins for each team
+          }
+        },
+        { 
+          $sort: { wins: -1 } 
+        }
+      ]).toArray();
+      res.json(result);
     } catch (error) {
-    res.status(500).json({ message: "Error counting wins", error });
+      res.status(500).json({ message: 'Error counting wins', error });
     }
-});
+  });
     
 // 7. Get Total Score by Team (Home and Away)
 router.get('/total-score-by-team', async (req, res) => {
