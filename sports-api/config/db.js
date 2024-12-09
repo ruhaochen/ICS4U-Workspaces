@@ -8,7 +8,7 @@ const dbName = 'sports_league';
 
 let db;
 
-export async function connectDB(){
+export const connectDB = async () => {
     if (db)
         return db;
     try {
