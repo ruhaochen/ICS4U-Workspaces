@@ -231,4 +231,36 @@ router.get('/teams-more-than-10-matches', async (req, res) => {
     }
 });
 
+//Delete this later
+
+router.get('/patients/aggregated-diagnosis', async (req, res) => {
+  try {
+      const db = await connectDB();
+      const result = await db.collection ('Patients').aggregate([
+          {
+            $unwind: {
+              path: "$medical_history",
+            },
+          },
+          {
+            $group: {
+              _id: "$medical_history",
+              numPatients: {
+                $sum: 1,
+              }
+            }
+          },
+          {
+            $sort: {
+              numPatients: -1
+            }
+          }
+        ]).toArray();
+      res.json(result);
+  } catch (error) {
+      res.status(500).json({ message: "Error finding most common diagnosis", error });
+  }
+});
+
+
 export default router; 
