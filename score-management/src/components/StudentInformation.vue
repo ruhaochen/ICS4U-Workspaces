@@ -10,25 +10,6 @@
     return ((props.student.grade/47)*100).toFixed(0);
   });
 
-  const level = computed(() => {
-    if(percentage >= 95){
-        return 'Level 4++';
-    }else if(percentage < 95 && percentage >= 87){
-        return 'Level 4+';
-    }
-    else if(percentage < 87 && percentage >= 80){
-        return 'Level 4';
-    }
-    else if(percentage < 80 && percentage >= 70){
-        return 'Level 3';
-    }
-    else if(percentage < 70 && percentage >= 60){
-        return 'Level 2';
-    }else{
-        return 'Level 1';
-    }
-  });
-  
   const deleteStudent = () => {
     emit('delete-score', props.student.id);
   };

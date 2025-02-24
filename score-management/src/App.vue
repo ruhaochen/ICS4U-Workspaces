@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import StudentInformation from './components/StudentInformation.vue';
-// Reactive task list
+
 let students = ref([]);
 const studentName = ref('');
 const studentScore = ref('');
@@ -21,12 +21,10 @@ const addStudent = () => {
 
 const findStudent = (name) => {
   filter.value = true;
-  console.log(filter.value)
   specialStudents = ref(students.value.filter(student => student.name == name));
-  specialStudents.value.forEach(student => console.log(student))
-  console.log(specialStudents.value)
-  if(specialStudents.value.length == 0){
-    filter = false;
+  // specialStudents.value.forEach(student => console.log(student))
+  if(name === ''){
+    filter.value = false;
   }
 }
 
@@ -80,9 +78,11 @@ const alphabeticalOrder = () => {
       </tbody>
     </table>
     <p v-else>No scores yet!</p>
-    <p>Search for student:</p>
-    <input v-model="nameOfStudent" placeholder="Name" />
-    <button @click="findStudent(nameOfStudent)">Search</button>
+    <div class = "student-input">
+      <p>Search for student:</p>
+      <input v-model="nameOfStudent" placeholder="Name" />
+      <button @click="findStudent(nameOfStudent)">Search</button>
+    </div>
   </div>
 </template>
 
@@ -97,10 +97,6 @@ const alphabeticalOrder = () => {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
-}
-input, textarea {
-  padding: 8px;
-  width: 100%;
 }
 button {
   padding: 10px;
