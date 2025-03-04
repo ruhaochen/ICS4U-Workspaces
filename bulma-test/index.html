@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <title>Bulma Example</title>
+    <style>
+        /* td{
+            background-color: aquamarine;
+        } */
+
+        .ugly{
+            background-color: aquamarine;
+        }
+
+        .worse{
+            font-weight: bolder;
+        }
+    </style>
+
+    <script>
+        const data =[{name:"Steve", age: 18},{name:"Henry", age: 15},{name:"Evan", age: 19},{name:"Adam", age: 21}];
+        function loadData(){
+            data.forEach(row => {
+                let table = document.getElementById('table-body');
+                let tr = document.createElement('tr');
+                let temp =document.createElement('td');
+                temp.innerText = row.name;
+                tr.append(temp);
+                temp = document.createElement('td');
+                temp.innerText = row.age;
+                tr.append(temp);
+                table.append(tr);
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+    </div>
+
+    <div><button class="button" onclick="loadData()">Load Data</button></div>
+</body>
+
+</html>
